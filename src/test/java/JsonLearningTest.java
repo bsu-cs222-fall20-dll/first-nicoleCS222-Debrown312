@@ -28,3 +28,8 @@ public class JsonLearningTest {
         Assert.assertEquals(4, array.size());
     }
 }
+//We will have to make some
+//modifications based on the fact that we're using Gradle rather than Maven, but the parsing
+//strategy is still the same
+//NEXT GeT a stream of live data is straightforward using Java's URLConnection class, as
+//documented in this trail from The Java Tutorial.
