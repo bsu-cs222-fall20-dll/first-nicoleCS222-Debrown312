@@ -3,8 +3,8 @@ import java.io.*;
 
 public class URLConnectionReader {
     public static void main(String[] args) throws Exception {
-        URL oracle = new URL("http://www.oracle.com/");
-        URLConnection yc = oracle.openConnection();
+        URL wiki = new URL("http://www.wikipedia.com/");
+        URLConnection yc = wiki.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(
                 yc.getInputStream()));
         String inputLine;
