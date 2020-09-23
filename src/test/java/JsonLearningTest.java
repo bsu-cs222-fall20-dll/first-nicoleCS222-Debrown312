@@ -42,7 +42,7 @@ public class JsonLearningTest {
         JsonObject holder2 = holder.getValue().getAsJsonObject();
         for (Map.Entry<String, JsonElement> entry : redirects.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            array = entryObject.getAsJsonArray("revisions");
+            JsonArray array = entryObject.getAsJsonArray("revisions");
             System.out.println(array);
         }
         Assertions.assertEquals();
