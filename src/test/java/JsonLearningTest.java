@@ -13,7 +13,7 @@ import java.util.Map;
 public class JsonLearningTest {
     @SuppressWarnings("deprecation")
     @Test
-    public void testCountRevisions(){
+    public void testCountRevisions() {
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         Reader reader = new InputStreamReader(inputStream);
@@ -21,7 +21,7 @@ public class JsonLearningTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
-        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
+        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
             System.out.println(array);
@@ -31,14 +31,19 @@ public class JsonLearningTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testCountRedirects(){
+    public void testCountRedirects() {
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
-        JsonObject holder = redirects.getAsJsonObject();
+        for (Map.Entry<String, JsonElement> entry : redirects.entrySet()) {
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+            array = entryObject.getAsJsonArray("revisions");
+            System.out.println(array);
+            JsonObject holder = redirects.getAsJsonObject();
+        }
         Assertions.assertEquals();
     }
 }
