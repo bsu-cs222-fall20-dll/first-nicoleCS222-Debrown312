@@ -6,7 +6,7 @@ public class Reverse {
 
         if (args.length != 2) {
             System.err.println("Usage:  java Reverse "
-                    + "http://<location of your servlet/script>"
+                    + "http://en.wikipedia.com/"
                     + " string_to_reverse");
             System.exit(1);
         }

@@ -24,6 +24,7 @@ public class JsonLearningTest {
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
+            System.out.println(array);
         }
         Assertions.assertEquals(4, array.size());
     }
