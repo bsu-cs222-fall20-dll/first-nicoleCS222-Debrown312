@@ -38,12 +38,12 @@ public class JsonLearningTest {
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
+        JsonObject holder = redirects.getAsJsonObject();
         JsonObject holder2 = holder.getValue().getAsJsonObject();
         for (Map.Entry<String, JsonElement> entry : redirects.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
             System.out.println(array);
-            JsonObject holder = redirects.getAsJsonObject();
         }
         Assertions.assertEquals();
     }
