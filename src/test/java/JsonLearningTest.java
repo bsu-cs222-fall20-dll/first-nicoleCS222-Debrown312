@@ -45,6 +45,6 @@ public class JsonLearningTest {
             JsonArray array = entryObject.getAsJsonArray("revisions");
             System.out.println(array);
         }
-        Assertions.assertEquals();
+        Assertions.assertEquals("Frank Zappa", holder);
     }
 }
