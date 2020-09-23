@@ -28,4 +28,17 @@ public class JsonLearningTest {
         }
         Assertions.assertEquals(4, array.size());
     }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void testCountRedirects(){
+        JsonParser parser = new JsonParser();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
+        Reader reader = new InputStreamReader(inputStream);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
+        JsonObject holder = redirects.getAsJsonObject();
+        Assertions.assertEquals();
+    }
 }
