@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Dictionary;
 import java.util.Map;
 
 public class JsonLearningTest {
@@ -25,8 +26,8 @@ public class JsonLearningTest {
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
-            System.out.println(array);
         }
+        System.out.println(array);
         Assertions.assertEquals(4, array.size());
     }
 
@@ -39,21 +40,8 @@ public class JsonLearningTest {
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
-        JsonElement holder = redirects.get(0);
-        //JsonObject holder2 = holder.deepCopy().getAsJsonObject();
-
-        //JsonElement holder2 = holder.getAsJsonArray().get(0);
-        //String holder2 = holder.;
-        /*
-        JsonObject holder2 = holder.getValue().getAsJsonObject();
-        */
-        /*
-        for(Map.Entry<String,JsonElement> entry : redirects.entrySet()){
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            //array = entryObject.getAsJsonArray("revisions");
-            System.out.println(entryObject);
-        }
-        */
-        Assertions.assertEquals("Frank Zappa", holder2);
+        JsonObject holder = redirects.get(redirects.size() - 1).getAsJsonObject();
+        String user = holder.get("to").toString();
+        Assertions.assertEquals("Frank Zappa", user);
     }
 }
