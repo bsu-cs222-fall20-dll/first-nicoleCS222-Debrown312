@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class RevisionParser {
     @SuppressWarnings("deprecation")
-    public String firstAuthorFinder(InputStream inputStream){
+    public JsonElement firstAuthorFinder(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
@@ -22,7 +22,8 @@ public class RevisionParser {
             array = entryObject.getAsJsonArray("revisions");
         }
         JsonObject firstSubmission = array.get(array.size() - 1).getAsJsonObject();
-        String firstAuthor = firstSubmission.get("user").toString();
+        JsonElement firstAuthor = firstSubmission.get("user");
+        //String firstAuthor = firstSubmission.get("user").toString();
         return firstAuthor;
     }
 
