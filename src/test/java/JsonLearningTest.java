@@ -40,7 +40,10 @@ public class JsonLearningTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
         JsonElement holder = redirects.get(0);
-        JsonObject holder2 = holder;
+        //JsonObject holder2 = holder.deepCopy().getAsJsonObject();
+
+        //JsonElement holder2 = holder.getAsJsonArray().get(0);
+        //String holder2 = holder.;
         /*
         JsonObject holder2 = holder.getValue().getAsJsonObject();
         */
