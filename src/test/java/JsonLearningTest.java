@@ -2,6 +2,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 public class JsonLearningTest {
     @SuppressWarnings("deprecation")
     @Test
-    public void testCountRevisions() {
+    public void testCountRevisions(){
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         Reader reader = new InputStreamReader(inputStream);
@@ -21,7 +22,7 @@ public class JsonLearningTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
-        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
+        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
             System.out.println(array);
@@ -31,20 +32,25 @@ public class JsonLearningTest {
 
     @SuppressWarnings("deprecation")
     @Test
-    public void testCountRedirects() {
+    public void testCountRedirects(){
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
-        JsonObject holder = redirects.getAsJsonObject();
+        JsonElement holder = redirects.get(0);
+        JsonObject holder2 = holder;
+        /*
         JsonObject holder2 = holder.getValue().getAsJsonObject();
-        for (Map.Entry<String, JsonElement> entry : redirects.entrySet()) {
+        */
+        /*
+        for(Map.Entry<String,JsonElement> entry : redirects.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            JsonArray array = entryObject.getAsJsonArray("revisions");
-            System.out.println(array);
+            //array = entryObject.getAsJsonArray("revisions");
+            System.out.println(entryObject);
         }
-        Assertions.assertEquals("Frank Zappa", holder);
+        */
+        Assertions.assertEquals("Frank Zappa", holder2);
     }
 }
