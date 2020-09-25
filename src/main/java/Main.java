@@ -1,3 +1,4 @@
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -18,7 +19,7 @@ public class Main {
     public static void RevisionList() {
         RevisionParser revisionParser = new RevisionParser();
         InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("sample.json");
-        for(JsonObject entry : revisionParser.ListOfAllRevisions(inputStream)) {
+        for(JsonArray entry : revisionParser.ListOfAllRevisions(inputStream)) {
             System.out.println(entry);
         }
     }

@@ -26,22 +26,18 @@ public class RevisionParser {
         JsonElement firstAuthor = firstSubmission.get("user");
         return firstAuthor;
     }
-    public ArrayList<JsonObject> ListOfAllRevisions(InputStream inputStream){
+    public ArrayList<JsonArray> ListOfAllRevisions(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        ArrayList<JsonObject> revisionList = new ArrayList<>();
+        ArrayList<JsonArray> revisionList = new ArrayList<>();
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            revisionList.add(entryObject);
+            revisionList.add(entryObject.getAsJsonArray("revisions"));
         }
         return revisionList;
-
-
-
-
     }
 
 }
