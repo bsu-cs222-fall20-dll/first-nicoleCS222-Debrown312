@@ -1,15 +1,13 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        URLConnectionReader UrlConnectionReader = new URLConnectionReader();
-        FirstAuthor(UrlConnectionReader.getConnectionToWebsite());
-
+    public static void main(String[] args) throws Exception {
+        URLConnection urlConnection = new URLConnection();
+        FirstAuthor(urlConnection.getConnectionToWebsite());
     }
 
     public static void FirstAuthor(InputStream inputStream) {
@@ -31,7 +29,6 @@ public class Main {
         String userInput = console.nextLine();
         return userInput;
     }
-
 
 }
 
