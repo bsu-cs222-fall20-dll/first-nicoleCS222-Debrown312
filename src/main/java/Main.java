@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         URLConnectionReader UrlConnectionReader = new URLConnectionReader();
-        FirstAuthor(UrlConnectionReader.getConnectionToWebsite(););
+        FirstAuthor(UrlConnectionReader.getConnectionToWebsite());
 
     }
 
