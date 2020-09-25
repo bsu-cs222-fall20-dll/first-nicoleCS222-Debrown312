@@ -26,7 +26,7 @@ public class RevisionParser {
         JsonElement firstAuthor = firstSubmission.get("user");
         return firstAuthor;
     }
-    public ArrayList<JsonObject> ListOfAllRevisions(){
+    public ArrayList<JsonObject> ListOfAllRevisions(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
