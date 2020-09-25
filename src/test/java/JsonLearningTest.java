@@ -6,8 +6,10 @@ import com.google.gson.stream.JsonReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Dictionary;
@@ -46,17 +48,13 @@ public class JsonLearningTest {
         Assertions.assertEquals("Frank Zappa", user);
     }
     @Test
-    public void URLConnectionTest() throws IOException {
-        URL wiki = new URL("en.wikipedia.com/wiki/Zappa");
+    public void URLConnectionTest() {
+        URL wiki = new URL("http://en.wikipedia.com/wiki/");
         URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        while((inputLine = in.readLine()) != null){
-            System.out.println(inputLine);
-        }
-        in.close();
+        InputStream in = connection.getInputStream();
+        InputStreamReader inReader = new InputStreamReader(in);
+        BufferedReader bufferedReader = new BufferedReader(inReader);
+
     }
-
-
 }
