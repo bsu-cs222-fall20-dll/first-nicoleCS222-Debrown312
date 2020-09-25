@@ -3,6 +3,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.InputStream;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,6 +23,11 @@ public class Main {
         for(JsonArray entry : revisionParser.ListOfAllRevisions(inputStream)) {
             System.out.println(entry);
         }
+    }
+    public static String UserInput() {
+        Scanner console = new Scanner(System.in);
+        String userInput = console.nextLine();
+        return userInput;
     }
 }
 
