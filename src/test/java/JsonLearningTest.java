@@ -6,10 +6,8 @@ import com.google.gson.stream.JsonReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Dictionary;
@@ -47,14 +45,21 @@ public class JsonLearningTest {
         String user = holder.get("to").toString();
         Assertions.assertEquals("Frank Zappa", user);
     }
+    @SuppressWarnings("deprecation")
     @Test
-    public void URLConnectionTest() {
-        URL wiki = new URL("http://en.wikipedia.com/wiki/");
+    public void URLConnectionTest() throws IOException {
+        URL wiki = new URL("http://en.wikipedia.org/wiki/Zappa");
         URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");
         InputStream in = connection.getInputStream();
-        InputStreamReader inReader = new InputStreamReader(in);
-        BufferedReader bufferedReader = new BufferedReader(inReader);
+        JsonParser parser = new JsonParser();
+        Reader reader = new InputStreamReader(in);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
+        JsonObject holder = redirects.get(redirects.size() - 1).getAsJsonObject();
+        String user = holder.get("to").toString();
+        Assertions.assertEquals("Frank Zappa", user);
 
     }
 }
