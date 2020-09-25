@@ -23,8 +23,15 @@ public class RevisionParser {
         }
         JsonObject firstSubmission = array.get(array.size() - 1).getAsJsonObject();
         JsonElement firstAuthor = firstSubmission.get("user");
-        //String firstAuthor = firstSubmission.get("user").toString();
         return firstAuthor;
+    }
+    public void ListOfAllRevisions(){
+        JsonParser parser = new JsonParser();
+        Reader reader = new InputStreamReader(inputStream);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+
     }
 
 }
