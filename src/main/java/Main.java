@@ -8,13 +8,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         URLConnectionReader UrlConnectionReader = new URLConnectionReader();
-
+        FirstAuthor(UrlConnectionReader.getConnectionToWebsite(););
 
     }
 
-    public static void FirstAuthor() {
+    public static void FirstAuthor(InputStream inputStream) {
         RevisionParser revisionParser = new RevisionParser();
-        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("sample.json");
+        //InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("sample.json");
         JsonElement firstAuthor = revisionParser.firstAuthorFinder(inputStream);
         System.out.println(firstAuthor);
     }
