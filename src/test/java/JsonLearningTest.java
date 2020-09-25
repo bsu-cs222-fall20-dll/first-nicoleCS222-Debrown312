@@ -56,10 +56,12 @@ public class JsonLearningTest {
         Reader reader = new InputStreamReader(in);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
-        JsonObject holder = redirects.get(redirects.size() - 1).getAsJsonObject();
-        String user = holder.get("to").toString();
-        Assertions.assertEquals("Frank Zappa", user);
-
+        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+        JsonArray array = null;
+        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+            array = entryObject.getAsJsonArray("revisions");
+        }
+        System.out.println(array.get(array.size()-1));
     }
 }
