@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class RevisionParser {
@@ -25,12 +26,21 @@ public class RevisionParser {
         JsonElement firstAuthor = firstSubmission.get("user");
         return firstAuthor;
     }
-    public void ListOfAllRevisions(){
+    public ArrayList<JsonObject> ListOfAllRevisions(){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+        ArrayList<JsonObject> revisionList = new ArrayList<>();
+        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+            revisionList.add(entryObject);
+        }
+        return revisionList;
+
+
+
 
     }
 
