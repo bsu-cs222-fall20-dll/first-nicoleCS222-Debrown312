@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
@@ -22,21 +23,28 @@ public class URLConnectionTest {
         URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");
         connection.connect();
-        InputStream in = connection.getInputStream();
+        InputStream inputStream = connection.getInputStream();
         JsonParser parser = new JsonParser();
-        Reader reader = new InputStreamReader(in);
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray array = null;
+        InputStreamReader reader = new InputStreamReader(inputStream);
+        //JsonElement rootElement = parser.parse(reader);
+        //JsonObject rootObject = parser.parse(reader).getAsJsonObject();
+        //JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+        //JsonArray array = null;
+        /*
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
-        JsonElement holder = array.get(array.size()-1);
-        System.out.println(holder);
-    }
 
+         */
+
+        //System.out.println();
+        //JsonElement holder = array.get(array.size()-1);
+        //System.out.println(holder);
+
+
+    }
+    /*
     @SuppressWarnings("deprecation")
     @Test
     public void URLConnectionTest2() throws IOException {
@@ -52,4 +60,6 @@ public class URLConnectionTest {
         }
 
     }
+
+     */
 }

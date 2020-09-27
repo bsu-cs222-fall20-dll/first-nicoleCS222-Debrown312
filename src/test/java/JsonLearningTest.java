@@ -24,7 +24,7 @@ public class JsonLearningTest {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
-        System.out.println(array);
+        System.out.println(array.get(1).getAsJsonObject().get("user").getAsString());
         Assertions.assertEquals(4, array.size());
     }
 
@@ -38,7 +38,7 @@ public class JsonLearningTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
         JsonObject holder = redirects.get(redirects.size() - 1).getAsJsonObject();
-        String user = holder.get("to").toString();
+        String user = holder.get("to").getAsString();
         Assertions.assertEquals("Frank Zappa", user);
     }
 }
