@@ -4,10 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,7 +23,8 @@ public class URLConnectionTest {
         InputStream inputStream = connection.getInputStream();
         JsonParser parser = new JsonParser();
         InputStreamReader reader = new InputStreamReader(inputStream);
-        //JsonElement rootElement = parser.parse(reader);
+        BufferedReader reader2 = new BufferedReader(reader);
+        JsonElement rootElement = parser.parse(reader2);
         //JsonObject rootObject = parser.parse(reader).getAsJsonObject();
         //JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         //JsonArray array = null;
