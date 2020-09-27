@@ -2,8 +2,8 @@ import java.net.*;
 import java.io.*;
 
 public class URLConnection {
-    public InputStream getConnectionToWebsite() throws Exception {
-        URL wiki = new URL("http://en.wikipedia.org/wiki/Zappa");
+    public InputStream getConnectionToWebsite(String webSearch) throws Exception {
+        URL wiki = new URL(webSearch);
         java.net.URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown312@gmail.com)");
         InputStream in = connection.getInputStream();

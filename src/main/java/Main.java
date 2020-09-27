@@ -7,7 +7,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         URLConnection urlConnection = new URLConnection();
-        FirstAuthor(urlConnection.getConnectionToWebsite());
+        Menu menu = new Menu();
+        String userInput = menu.UserInput();
+        FirstAuthor(urlConnection.getConnectionToWebsite(userInput));
     }
 
     public static void FirstAuthor(InputStream inputStream) {
@@ -23,11 +25,6 @@ public class Main {
         for(JsonArray entry : revisionParser.ListOfAllRevisions(inputStream)) {
             System.out.println(entry);
         }
-    }
-    public static String UserInput() {
-        Scanner console = new Scanner(System.in);
-        String userInput = console.nextLine();
-        return userInput;
     }
 
 }
