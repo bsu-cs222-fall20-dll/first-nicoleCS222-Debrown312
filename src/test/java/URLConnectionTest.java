@@ -17,19 +17,9 @@ import java.util.Set;
 public class URLConnectionTest {
     @SuppressWarnings("deprecation")
     @Test
-    public void URLConnectionTest() throws IOException {
+    public void URLConnectionTest1() throws IOException {
         URL wiki = new URL("http://en.wikipedia.org/wiki/Zappa");
-        //URLConnection connection = wiki.openConnection();
-        HttpURLConnection connection = (HttpURLConnection) wiki.openConnection();
-        JsonElement jsonElement = new JsonParser().parse(new InputStreamReader((InputStream) connection.getContent()));
-        JsonElement pages = jsonElement.getAsJsonObject().get("query").getAsJsonObject().get("pages");
-        Set<Map.Entry<String, JsonElement>> entrySet = pages.getAsJsonObject().entrySet();
-        JsonElement yourDesiredElement = null;
-        for(Map.Entry<String,JsonElement> entry : entrySet){
-            yourDesiredElement = entry.getValue();
-        }
-        System.out.println(yourDesiredElement);
-        /*
+        URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");
         InputStream in = connection.getInputStream();
         JsonParser parser = new JsonParser();
@@ -44,6 +34,21 @@ public class URLConnectionTest {
         }
         JsonElement holder = array.get(array.size()-1);
         System.out.println(holder);
-        */
+    }
+
+    @SuppressWarnings("deprecation")
+    @Test
+    public void URLConnectionTest2() throws IOException {
+        URL wiki = new URL("http://en.wikipedia.org/wiki/Zappa");
+        HttpURLConnection connection = (HttpURLConnection) wiki.openConnection();
+        JsonElement jsonElement = new JsonParser().parse(new InputStreamReader((InputStream) connection.getContent()));
+        JsonElement pages = jsonElement.getAsJsonObject().get("query").getAsJsonObject().get("pages");
+        Set<Map.Entry<String, JsonElement>> entrySet = pages.getAsJsonObject().entrySet();
+        JsonArray yourDesiredElement = null;
+        for (Map.Entry<String, JsonElement> entry : entrySet) {
+            yourDesiredElement = entry.getValue();
+            System.out.println(yourDesiredElement);
+        }
+
     }
 }

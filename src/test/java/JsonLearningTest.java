@@ -5,12 +5,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Dictionary;
 import java.util.Map;
 
 public class JsonLearningTest {
@@ -24,6 +19,7 @@ public class JsonLearningTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
+        //array.get(1).getAsJsonObject().get("user").getAsString();
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
@@ -45,5 +41,4 @@ public class JsonLearningTest {
         String user = holder.get("to").toString();
         Assertions.assertEquals("Frank Zappa", user);
     }
-
 }

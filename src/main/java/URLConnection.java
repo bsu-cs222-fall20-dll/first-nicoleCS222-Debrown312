@@ -6,7 +6,7 @@ public class URLConnection {
         URL wiki = new URL(webSearch);
         java.net.URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown312@gmail.com)");
-        InputStream in = connection.getInputStream();
-        return in;
+        InputStream inputStream = connection.getInputStream();
+        return inputStream;
     }
 }
