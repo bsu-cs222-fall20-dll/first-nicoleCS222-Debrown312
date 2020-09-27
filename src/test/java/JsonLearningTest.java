@@ -45,23 +45,5 @@ public class JsonLearningTest {
         String user = holder.get("to").toString();
         Assertions.assertEquals("Frank Zappa", user);
     }
-    @SuppressWarnings("deprecation")
-    @Test
-    public void URLConnectionTest() throws IOException {
-        URL wiki = new URL("http://en.wikipedia.org/wiki/Zappa");
-        URLConnection connection = wiki.openConnection();
-        connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");
-        InputStream in = connection.getInputStream();
-        JsonParser parser = new JsonParser();
-        Reader reader = new InputStreamReader(in);
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray array = null;
-        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            array = entryObject.getAsJsonArray("revisions");
-        }
-        System.out.println(array.get(array.size()-1));
-    }
+
 }
