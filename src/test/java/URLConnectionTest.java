@@ -18,9 +18,10 @@ public class URLConnectionTest {
     @SuppressWarnings("deprecation")
     @Test
     public void URLConnectionTest1() throws IOException {
-        URL wiki = new URL("http://en.wikipedia.org/wiki/Zappa");
+        URL wiki = new URL("https://en.wikipedia.org/w/api.php?action=query&prop=revisions&format=xml&rvprop=timestamp%7Cuser&rvlimit=4&titles=frank%20zappa&redirects");
         URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");
+        connection.connect();
         InputStream in = connection.getInputStream();
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(in);
