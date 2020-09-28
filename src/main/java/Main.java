@@ -10,7 +10,5 @@ public class Main {
         URL url = urlConnection.inputToURLConverter(userInput);
         urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
     }
-
-
 }
 
