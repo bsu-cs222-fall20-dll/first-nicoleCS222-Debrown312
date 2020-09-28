@@ -1,6 +1,5 @@
 import java.net.*;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 public class URLConnection {
     public InputStream getConnectionToWebsite(URL url) {

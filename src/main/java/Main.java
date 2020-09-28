@@ -1,7 +1,3 @@
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-
-import java.io.InputStream;
 import java.net.URL;
 
 
@@ -13,7 +9,6 @@ public class Main {
         String userInput = menu.getUserRequest();
         URL url = urlConnection.inputToURLConverter(userInput);
         urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
-        //FirstAuthor(urlConnection.getConnectionToWebsite(url));
     }
 
 
