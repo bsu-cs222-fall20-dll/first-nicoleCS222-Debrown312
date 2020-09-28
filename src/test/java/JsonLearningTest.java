@@ -14,7 +14,7 @@ public class JsonLearningTest {
     public void testCountRevisions(){
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        Reader reader = new InputStreamReader(inputStream);
+        InputStreamReader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
@@ -24,7 +24,7 @@ public class JsonLearningTest {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
-        System.out.println(array.get(1).getAsJsonObject().get("user").getAsString());
+        System.out.println(array.get(0).getAsJsonObject().get("user").getAsString());
         Assertions.assertEquals(4, array.size());
     }
 
