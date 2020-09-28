@@ -6,9 +6,10 @@ import java.io.InputStream;
 public class URLResults {
     public void RevisionList(InputStream inputStream) {
         RevisionParser revisionParser = new RevisionParser();
-        JsonArray revisionArray = revisionParser.ListOfAllRevisions(inputStream);
-        for(JsonElement entry : revisionArray) {
-            System.out.println(entry + "\n");
+        for(JsonArray entry : revisionParser.ListOfAllRevisions(inputStream)) {
+            for(JsonElement user : entry){
+                System.out.println(user);
+            }
         }
     }
 }

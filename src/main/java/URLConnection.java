@@ -15,6 +15,7 @@ public class URLConnection {
 
     public URL inputToURLConverter(String webSearch) throws Exception {
         String conversion = webSearch.replaceAll(" ", "%20");
+        System.out.println(conversion);
         URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + conversion + "&rvprop=timestamp|user&rvlimit=20&redirects");
         return url;
     }
