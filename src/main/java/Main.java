@@ -9,8 +9,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         URLConnection urlConnection = new URLConnection();
         Menu menu = new Menu();
-        URL userInput = menu.UserInput();
-        FirstAuthor(urlConnection.getConnectionToWebsite(userInput));
+        String userInput = menu.getUserRequest();
+        URL url = urlConnection.inputToURLConverter(userInput);
+        FirstAuthor(urlConnection.getConnectionToWebsite(url));
     }
 
     public static void FirstAuthor(InputStream inputStream) {

@@ -10,11 +10,16 @@ public class URLConnection {
             throw new RuntimeException(e.getCause());
         }
     }
-    public InputStream getConnectionToWebsite(String webSearch) throws Exception {
-        URL wiki = new URL(webSearch);
-        java.net.URLConnection connection = wiki.openConnection();
+    public InputStream getConnectionToWebsite(URL url) throws Exception {
+        java.net.URLConnection connection = url.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown312@gmail.com)");
         InputStream inputStream = connection.getInputStream();
         return inputStream;
+    }
+
+    public URL inputToURLConverter(String webSearch) throws Exception{
+        String conversion = webSearch.replaceAll(" ", "%20");
+        URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + conversion + "&rvprop=timestamp|user&rvlimit=20&redirects");
+        return url;
     }
 }
