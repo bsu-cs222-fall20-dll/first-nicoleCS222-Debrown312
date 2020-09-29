@@ -11,16 +11,25 @@ import java.util.Map;
 
 public class RevisionParser {
     @SuppressWarnings("deprecation")
-    public ArrayList<JsonArray> ListOfAllRevisions(InputStream inputStream){
+    public ArrayList<Revisions> ListOfAllRevisions(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        ArrayList<JsonArray> revisionList = new ArrayList<>();
-        for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
+        JsonArray revisionArray = null;
+        for(Map.Entry<String, JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            revisionList.add(entryObject.getAsJsonArray("revisions"));
+            revisionArray = entryObject.getAsJsonArray("revisions");
+        }
+        ArrayList<Revisions> revisionList = new ArrayList<>();
+        //System.out.println("Before the For loop");
+        for(JsonElement entry : revisionArray){
+            //System.out.println("after the for loop");
+            String user = entry.getAsJsonObject().get("user").getAsString();
+            String timeStamp = entry.getAsJsonObject().get("timestamp").getAsString();
+            Revisions revision = new Revisions(user, timeStamp);
+            revisionList.add(revision);
         }
         return revisionList;
     }
