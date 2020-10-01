@@ -2,6 +2,7 @@ package edu.bsu.cs222;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,6 +41,9 @@ public class Main extends Application {
 
          */
         parent.getChildren().add(searchButton);
+
+        primaryStage.setScene(new Scene(parent));
+        primaryStage.show();
     }
 }
 
