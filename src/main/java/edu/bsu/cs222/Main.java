@@ -1,6 +1,8 @@
 package edu.bsu.cs222;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -28,6 +30,16 @@ public class Main extends Application {
         TextField textField = new TextField();
         urlArea.getChildren().add(textField);
         parent.getChildren().add(urlArea);
+
+        Button searchButton = new Button("Search");
+        /*
+        searchButton.setOnAction({public void handle(ActionEvent event){
+
+            //Stuff
+        }})
+
+         */
+        parent.getChildren().add(searchButton);
     }
 }
 
