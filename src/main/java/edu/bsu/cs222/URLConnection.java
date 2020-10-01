@@ -1,3 +1,5 @@
+package edu.bsu.cs222;
+
 import java.net.*;
 import java.io.*;
 
@@ -15,7 +17,7 @@ public class URLConnection {
 
     public URL inputToURLConverter(String webSearch) throws Exception {
         String conversion = webSearch.replaceAll(" ", "%20");
-        URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + conversion + "&rvprop=timestamp|user&rvlimit=20&redirects");
+        URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + conversion + "&rvprop=timestamp|user&rvlimit=25&redirects");
         return url;
     }
 }

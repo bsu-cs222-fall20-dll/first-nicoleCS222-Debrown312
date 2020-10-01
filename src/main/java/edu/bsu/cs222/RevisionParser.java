@@ -1,3 +1,5 @@
+package edu.bsu.cs222;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -19,6 +21,9 @@ public class RevisionParser {
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray revisionArray = null;
         for(Map.Entry<String, JsonElement> entry : pages.entrySet()){
+//            if(entry.getValue().getAsJsonObject().getAsString().equals("-1")){
+//                System.out.println("Page Not Found");
+//            }
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             revisionArray = entryObject.getAsJsonArray("revisions");
         }

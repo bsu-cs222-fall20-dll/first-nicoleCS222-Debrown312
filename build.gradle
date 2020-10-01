@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
-group 'org.example'
+group 'edu.bsu.cs222'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -15,6 +17,13 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter:5.6.2')
 }
 
-test{
+test {
     useJUnitPlatform()
 }
+
+javafx {
+    modules = ['javafx.controls', 'javafx.fxml']
+    version = ['13.0.2']
+}
+
+mainClassName = 'edu.bsu.cs222.Main'

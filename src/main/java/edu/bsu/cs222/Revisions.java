@@ -1,3 +1,5 @@
+package edu.bsu.cs222;
+
 public class Revisions {
     private String user;
     private String timeStamp;
