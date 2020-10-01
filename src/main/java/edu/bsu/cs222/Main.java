@@ -19,7 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        VBox parent = new VBox();
+        parent.getChildren().add(new Label("Enter Search for Revision"));
     }
 }
 

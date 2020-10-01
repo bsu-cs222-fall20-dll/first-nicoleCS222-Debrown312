@@ -27,7 +27,6 @@ public class JsonLearningTest {
         System.out.println(array.get(0).getAsJsonObject().get("user").getAsString());
         Assertions.assertEquals(4, array.size());
     }
-
     @SuppressWarnings("deprecation")
     @Test
     public void testCountRedirects(){
