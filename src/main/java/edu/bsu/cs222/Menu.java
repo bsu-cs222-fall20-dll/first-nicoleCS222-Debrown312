@@ -9,4 +9,6 @@ public class Menu {
         String userRequest = console.nextLine();
         return userRequest;
     }
+
+
 }

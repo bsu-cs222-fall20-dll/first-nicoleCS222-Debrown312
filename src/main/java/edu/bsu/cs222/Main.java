@@ -2,6 +2,7 @@ package edu.bsu.cs222;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,17 +14,18 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class Main extends Application {
-    public static void main(String[] args) throws Exception {
-        URLConnection urlConnection = new URLConnection();
-        Menu menu = new Menu();
-        URLResults urlResults = new URLResults();
-        String userInput = menu.getUserRequest();
-        URL url = urlConnection.inputToURLConverter(userInput);
-        urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
+    public static void main(String[] args) {
+        launch(args);
+//        URLConnection urlConnection = new URLConnection();
+//        Menu menu = new Menu();
+//        URLResults urlResults = new URLResults();
+//        String userInput = menu.getUserRequest();
+//        URL url = urlConnection.inputToURLConverter(userInput);
+//        urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         VBox parent = new VBox();
         parent.getChildren().add(new Label("Enter Search for Revision"));
 
@@ -33,13 +35,16 @@ public class Main extends Application {
         parent.getChildren().add(urlArea);
 
         Button searchButton = new Button("Search");
-        /*
-        searchButton.setOnAction({public void handle(ActionEvent event){
-
-            //Stuff
-        }})
-
-         */
+        searchButton.setOnAction(event -> {
+            URLConnection urlConnection = new URLConnection();
+            try {
+                URL url = urlConnection.inputToURLConverter(textField.getText());
+                URLResults urlResults = new URLResults();
+                urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         parent.getChildren().add(searchButton);
 
         primaryStage.setScene(new Scene(parent));

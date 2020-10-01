@@ -9,4 +9,6 @@ public class URLResults {
             System.out.println("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp());
         }
     }
+
+
 }
