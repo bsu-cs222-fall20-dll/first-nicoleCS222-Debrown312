@@ -26,4 +26,4 @@ javafx {
     version = ['14.0.2']
 }
 
-mainClassName = 'edu.bsu.cs222.Menu'
+mainClassName = 'edu.bsu.cs222.MainFX'
