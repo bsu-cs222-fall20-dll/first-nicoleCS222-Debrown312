@@ -9,14 +9,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 public class MainFX extends Application {
+    URLConnection urlConnection = new URLConnection();
+    URLResults urlResults = new URLResults();
+
     public static void main(String[] args) {
         launch(args);
     }
 
-
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception{
         VBox parent = new VBox();
         parent.getChildren().add(new Label("Enter Search for Revision"));
 
@@ -27,10 +31,14 @@ public class MainFX extends Application {
 
         Button searchButton = new Button("Search");
         searchButton.setOnAction(event -> {
-            System.out.println("I would like to access" + textField.getText() + "here");
+            try {
+                URL url = urlConnection.inputToURLConverter(textField.getText());
+                urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         parent.getChildren().add(searchButton);
-
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
     }

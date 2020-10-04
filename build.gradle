@@ -1,11 +1,14 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 group 'edu.bsu.cs222'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 14
+
 
 repositories {
     mavenCentral()
@@ -23,7 +26,7 @@ test {
 
 javafx {
     modules = ['javafx.controls', 'javafx.fxml']
-    version = ['14.0.2']
+    version = '14.0.2'
 }
 
 mainClassName = 'edu.bsu.cs222.MainFX'
