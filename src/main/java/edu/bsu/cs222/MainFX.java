@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class MainFX extends Application {
     URLConnection urlConnection = new URLConnection();
-    URLResults urlResults = new URLResults();
     RevisionParser revisionParser = new RevisionParser();
 
     public static void main(String[] args) {
@@ -35,7 +34,6 @@ public class MainFX extends Application {
         searchButton.setOnAction(event -> {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
-                //urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
                 ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url));
                 displayAllRevisions(revisionList);
             } catch (Exception e) {

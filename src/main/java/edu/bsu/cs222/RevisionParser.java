@@ -18,8 +18,8 @@ public class RevisionParser {
         tryRedirect(rootElement);
 
         try {
-            JsonObject pages = createJsonParser(rootElement);
-            JsonArray revisionArray = createJsonArray(pages);
+            JsonObject pages = createJsonParserForWebsite(rootElement);
+            JsonArray revisionArray = createJsonArrayForRevisions(pages);
             revisionList = createRevisionList(revisionArray);
             return revisionList;
         }catch(Exception e){
@@ -36,13 +36,13 @@ public class RevisionParser {
         JsonElement rootElement = parser.parse(reader);
         return rootElement;
     }
-    private JsonObject createJsonParser(JsonElement rootElement) {
+    private JsonObject createJsonParserForWebsite(JsonElement rootElement) {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         return pages;
     }
 
-    private JsonArray createJsonArray(JsonObject pages) {
+    private JsonArray createJsonArrayForRevisions(JsonObject pages) {
         JsonArray revisionArray = null;
         for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
