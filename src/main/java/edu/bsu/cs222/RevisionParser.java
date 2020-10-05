@@ -4,6 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,9 +16,8 @@ import java.util.Map;
 
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
-    public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
+    public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream, VBox parent) {
         try {
-            if(InputStream, )
             JsonElement rootElement = getRootElement(inputStream);
             tryRedirect(rootElement);
             JsonObject pages = createJsonParserForWebsite(rootElement);
@@ -23,8 +25,8 @@ public class RevisionParser {
             revisionList = createRevisionList(revisionArray);
             return revisionList;
         }catch(Exception e){
-            e.printStackTrace();
-            System.out.println("Page Not Found");
+            HBox pageNotFound = new HBox(new Label("Page Not Found"));
+            parent.getChildren().add(pageNotFound);
             return null;
         }
     }

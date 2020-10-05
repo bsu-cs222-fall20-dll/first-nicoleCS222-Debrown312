@@ -34,7 +34,7 @@ public class MainFX extends Application {
         searchButton.setOnAction(event -> {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
-                ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url, parent));
+                ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url, parent), parent);
                 displayAllRevisions(revisionList, parent);
             } catch (Exception e) {
                 e.printStackTrace();
