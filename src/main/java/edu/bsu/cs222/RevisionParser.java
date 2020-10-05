@@ -14,8 +14,14 @@ import java.util.Map;
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
+        try{
+            //checkForRedirects(inputStream);
+        }catch(Exception e){
+
+        }
         try {
             JsonObject pages = createJsonParser(inputStream);
+            //checkForRedirects(inputStream);
             JsonArray revisionArray = createJsonArray(pages);
             revisionList = createRevisionList(revisionArray);
             return revisionList;
@@ -43,6 +49,7 @@ public class RevisionParser {
         }
         return revisionArray;
     }
+
     private ArrayList<Revisions> createRevisionList(JsonArray revisionArray) {
         for (JsonElement entry : revisionArray) {
             String user = entry.getAsJsonObject().get("user").getAsString();
@@ -52,6 +59,7 @@ public class RevisionParser {
         }
         return revisionList;
     }
+    @SuppressWarnings("deprecation")
     private void checkForRedirects(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
