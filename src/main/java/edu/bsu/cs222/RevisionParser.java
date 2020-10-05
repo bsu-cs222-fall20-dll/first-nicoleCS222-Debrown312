@@ -12,19 +12,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class RevisionParser {
+    ArrayList<Revisions> revisionList = new ArrayList<>();
     @SuppressWarnings("deprecation")
     public ArrayList<Revisions> ListOfAllRevisions(InputStream inputStream) {
         JsonObject pages = createJsonParser(inputStream);
         JsonArray revisionArray = createJsonArray(pages);
-        ArrayList<Revisions> revisionList = new ArrayList<>();
         //System.out.println("Before the For loop");
-        for (JsonElement entry : revisionArray) {
-            //System.out.println("after the for loop");
-            String user = entry.getAsJsonObject().get("user").getAsString();
-            String timeStamp = entry.getAsJsonObject().get("timestamp").getAsString();
-            Revisions revision = new Revisions(user, timeStamp);
-            revisionList.add(revision);
-        }
+        revisionList = createRevisionList(revisionArray);
         return revisionList;
     }
 
@@ -47,7 +41,15 @@ public class RevisionParser {
             revisionArray = entryObject.getAsJsonArray("revisions");
         }
         return revisionArray;
-
-
+    }
+    public ArrayList<Revisions> createRevisionList(JsonArray revisionArray) {
+        for (JsonElement entry : revisionArray) {
+            //System.out.println("after the for loop");
+            String user = entry.getAsJsonObject().get("user").getAsString();
+            String timeStamp = entry.getAsJsonObject().get("timestamp").getAsString();
+            Revisions revision = new Revisions(user, timeStamp);
+            revisionList.add(revision);
+        }
+        return revisionList;
     }
 }
