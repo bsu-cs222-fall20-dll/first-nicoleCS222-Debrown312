@@ -10,7 +10,7 @@ public class URLConnection {
             connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown312@gmail.com)");
             return connection.getInputStream();
         }catch(Exception e){
-            System.out.println("That search does not exist");
+            System.out.println("Cannot Connect to Wikipedia");
         }
         return null;
     }

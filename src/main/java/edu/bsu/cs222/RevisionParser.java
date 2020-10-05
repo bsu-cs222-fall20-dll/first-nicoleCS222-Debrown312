@@ -13,16 +13,20 @@ import java.util.Map;
 
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
-    @SuppressWarnings("deprecation")
-    public ArrayList<Revisions> ListOfAllRevisions(InputStream inputStream) {
-        JsonObject pages = createJsonParser(inputStream);
-        JsonArray revisionArray = createJsonArray(pages);
-        //System.out.println("Before the For loop");
-        revisionList = createRevisionList(revisionArray);
-        return revisionList;
+    public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
+        try {
+            JsonObject pages = createJsonParser(inputStream);
+            JsonArray revisionArray = createJsonArray(pages);
+            revisionList = createRevisionList(revisionArray);
+            return revisionList;
+        }catch(Exception e){
+            System.out.println("Page Not Found");
+            return null;
+        }
     }
 
-    public JsonObject createJsonParser(InputStream inputStream) {
+    @SuppressWarnings("deprecation")
+    private JsonObject createJsonParser(InputStream inputStream) {
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
@@ -31,7 +35,7 @@ public class RevisionParser {
         return pages;
     }
 
-    public JsonArray createJsonArray(JsonObject pages) {
+    private JsonArray createJsonArray(JsonObject pages) {
         JsonArray revisionArray = null;
         for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
 //            if(entry.getValue().getAsJsonObject().getAsString().equals("-1")){
@@ -42,7 +46,7 @@ public class RevisionParser {
         }
         return revisionArray;
     }
-    public ArrayList<Revisions> createRevisionList(JsonArray revisionArray) {
+    private ArrayList<Revisions> createRevisionList(JsonArray revisionArray) {
         for (JsonElement entry : revisionArray) {
             //System.out.println("after the for loop");
             String user = entry.getAsJsonObject().get("user").getAsString();
