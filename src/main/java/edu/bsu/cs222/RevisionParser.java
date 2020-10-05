@@ -14,10 +14,10 @@ import java.util.Map;
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
-        JsonElement rootElement = getRootElement(inputStream);
-        tryRedirect(rootElement);
-
         try {
+            if(InputStream, )
+            JsonElement rootElement = getRootElement(inputStream);
+            tryRedirect(rootElement);
             JsonObject pages = createJsonParserForWebsite(rootElement);
             JsonArray revisionArray = createJsonArrayForRevisions(pages);
             revisionList = createRevisionList(revisionArray);

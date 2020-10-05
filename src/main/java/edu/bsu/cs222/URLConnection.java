@@ -17,6 +17,8 @@ public class URLConnection {
             //System.out.println("Cannot Connect to Wikipedia");
             HBox noWikiConnection = new HBox(new Label("Cannot connect to Wikipedia"));
             parent.getChildren().add(noWikiConnection);
+            //InputStream inputStream = null;
+            //return inputStream;
         }
         return null;
     }
