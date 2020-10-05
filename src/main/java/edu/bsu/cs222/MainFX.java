@@ -31,6 +31,18 @@ public class MainFX extends Application {
         createSearchBox();
 
         Button searchButton = new Button("Search");
+        searchWikipedia(searchButton);
+        parent.getChildren().add(searchButton);
+        primaryStage.setScene(new Scene(parent, 350, 550));
+        primaryStage.show();
+    }
+
+    private void createSearchBox() {
+        HBox urlArea = new HBox(new Label("Search Term:"));
+        urlArea.getChildren().add(textField);
+        parent.getChildren().add(urlArea);
+    }
+    public void searchWikipedia(Button searchButton) {
         searchButton.setOnAction(event -> {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
@@ -41,15 +53,6 @@ public class MainFX extends Application {
             }
 
         });
-        parent.getChildren().add(searchButton);
-        primaryStage.setScene(new Scene(parent, 350, 550));
-        primaryStage.show();
-    }
-
-    private void createSearchBox() {
-        HBox urlArea = new HBox(new Label("Search Term:"));
-        urlArea.getChildren().add(textField);
-        parent.getChildren().add(urlArea);
     }
     public void displayAllRevisions(ArrayList<Revisions> revisionList) {
         if (revisionList != null) {
