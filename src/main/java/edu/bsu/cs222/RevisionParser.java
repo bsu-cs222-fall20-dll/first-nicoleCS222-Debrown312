@@ -14,28 +14,31 @@ import java.util.Map;
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
-        try{
-            //checkForRedirects(inputStream);
-        }catch(Exception e){
+        //InputStream inputStream2 = inputStream;
+        JsonElement rootElement = getRootElement(inputStream);
+        tryRedirect(rootElement);
 
-        }
         try {
-            JsonObject pages = createJsonParser(inputStream);
+            JsonObject pages = createJsonParser(rootElement);
             //checkForRedirects(inputStream);
             JsonArray revisionArray = createJsonArray(pages);
             revisionList = createRevisionList(revisionArray);
             return revisionList;
         }catch(Exception e){
+            e.printStackTrace();
             System.out.println("Page Not Found");
             return null;
         }
     }
 
     @SuppressWarnings("deprecation")
-    private JsonObject createJsonParser(InputStream inputStream) {
+    private JsonElement getRootElement(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
+        return rootElement;
+    }
+    private JsonObject createJsonParser(JsonElement rootElement) {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         return pages;
@@ -60,14 +63,19 @@ public class RevisionParser {
         return revisionList;
     }
     @SuppressWarnings("deprecation")
-    private void checkForRedirects(InputStream inputStream){
-        JsonParser parser = new JsonParser();
-        Reader reader = new InputStreamReader(inputStream);
-        JsonElement rootElement = parser.parse(reader);
+    private void checkForRedirects(JsonElement rootElement){
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects").get(0).getAsJsonObject();
         String from = redirects.get("from").getAsString();
         String to = redirects.get("to").getAsString();
         System.out.println("From: " + from + "\nTo: " + to + "\n");
+    }
+
+    private void tryRedirect(JsonElement rootElement){
+        try{
+            checkForRedirects(rootElement);
+        }catch(Exception f){
+            //System.out.println("here");
+        }
     }
 }
