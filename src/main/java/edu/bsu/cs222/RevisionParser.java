@@ -19,7 +19,7 @@ public class RevisionParser {
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream, VBox parent) {
         try {
             JsonElement rootElement = getRootElement(inputStream);
-            tryRedirect(rootElement);
+            tryRedirect(rootElement, parent);
             JsonObject pages = createJsonParserForWebsite(rootElement);
             JsonArray revisionArray = createJsonArrayForRevisions(pages);
             revisionList = createRevisionList(revisionArray);
@@ -63,17 +63,19 @@ public class RevisionParser {
         return revisionList;
     }
     @SuppressWarnings("deprecation")
-    private void checkForRedirects(JsonElement rootElement){
+    private void checkForRedirects(JsonElement rootElement, VBox parent){
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects").get(0).getAsJsonObject();
         String from = redirects.get("from").getAsString();
         String to = redirects.get("to").getAsString();
-        System.out.println("From: " + from + "\nTo: " + to + "\n");
+        HBox redirect = new HBox(new Label("From: " + from + "\nTo: " + to + "\n"));
+        parent.getChildren().add(redirect);
+        //System.out.println("From: " + from + "\nTo: " + to + "\n");
     }
 
-    private void tryRedirect(JsonElement rootElement){
+    private void tryRedirect(JsonElement rootElement, VBox parent){
         try{
-            checkForRedirects(rootElement);
+            checkForRedirects(rootElement, parent);
         }catch(Exception f){
         }
     }
