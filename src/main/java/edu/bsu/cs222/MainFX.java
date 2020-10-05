@@ -37,11 +37,7 @@ public class MainFX extends Application {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
                 //urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
                 ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url));
-                if(revisionList != null) {
-                    for (Revisions entry : revisionList) {
-                        System.out.println("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp());
-                    }
-                }
+                displayAllRevisions(revisionList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -50,6 +46,14 @@ public class MainFX extends Application {
         parent.getChildren().add(searchButton);
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
+    }
+    public void displayAllRevisions(ArrayList<Revisions> revisionList) {
+        if(revisionList != null) {
+            for (Revisions entry : revisionList) {
+                System.out.println("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp());
+            }
+        }
+
     }
 
 }
