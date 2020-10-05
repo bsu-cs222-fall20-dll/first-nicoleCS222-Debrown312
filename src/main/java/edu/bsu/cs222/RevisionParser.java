@@ -38,9 +38,6 @@ public class RevisionParser {
     private JsonArray createJsonArray(JsonObject pages) {
         JsonArray revisionArray = null;
         for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
-//            if(entry.getValue().getAsJsonObject().getAsString().equals("-1")){
-//                System.out.println("Page Not Found");
-//            }
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             revisionArray = entryObject.getAsJsonArray("revisions");
         }
@@ -48,12 +45,14 @@ public class RevisionParser {
     }
     private ArrayList<Revisions> createRevisionList(JsonArray revisionArray) {
         for (JsonElement entry : revisionArray) {
-            //System.out.println("after the for loop");
             String user = entry.getAsJsonObject().get("user").getAsString();
             String timeStamp = entry.getAsJsonObject().get("timestamp").getAsString();
             Revisions revision = new Revisions(user, timeStamp);
             revisionList.add(revision);
         }
         return revisionList;
+    }
+    private void checkForRedirects(JsonObject pages){
+
     }
 }
