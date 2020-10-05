@@ -35,7 +35,7 @@ public class MainFX extends Application {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
                 ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url));
-                displayAllRevisions(revisionList);
+                parent = displayAllRevisions(revisionList, parent);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -45,12 +45,15 @@ public class MainFX extends Application {
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
     }
-    public void displayAllRevisions(ArrayList<Revisions> revisionList) {
+    public VBox displayAllRevisions(ArrayList<Revisions> revisionList, VBox parent) {
         if(revisionList != null) {
             for (Revisions entry : revisionList) {
-                System.out.println("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp());
+                HBox revision = new HBox(new Label("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp()));
+                parent.getChildren().add(revision);
+                //System.out.println("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp());
             }
         }
+        return parent;
 
     }
 
