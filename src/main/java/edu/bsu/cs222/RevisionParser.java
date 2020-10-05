@@ -13,19 +13,12 @@ import java.util.Map;
 
 public class RevisionParser {
     @SuppressWarnings("deprecation")
-    public ArrayList<Revisions> ListOfAllRevisions(InputStream inputStream){
+    public ArrayList<Revisions> ListOfAllRevisions(InputStream inputStream) {
         JsonObject pages = createJsonParser(inputStream);
-        JsonArray revisionArray = null;
-        for(Map.Entry<String, JsonElement> entry : pages.entrySet()){
-//            if(entry.getValue().getAsJsonObject().getAsString().equals("-1")){
-//                System.out.println("Page Not Found");
-//            }
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            revisionArray = entryObject.getAsJsonArray("revisions");
-        }
+        JsonArray revisionArray = createJsonArray(pages);
         ArrayList<Revisions> revisionList = new ArrayList<>();
         //System.out.println("Before the For loop");
-        for(JsonElement entry : revisionArray){
+        for (JsonElement entry : revisionArray) {
             //System.out.println("after the for loop");
             String user = entry.getAsJsonObject().get("user").getAsString();
             String timeStamp = entry.getAsJsonObject().get("timestamp").getAsString();
@@ -35,7 +28,7 @@ public class RevisionParser {
         return revisionList;
     }
 
-    public JsonObject createJsonParser(InputStream inputStream){
+    public JsonObject createJsonParser(InputStream inputStream) {
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
@@ -44,4 +37,17 @@ public class RevisionParser {
         return pages;
     }
 
+    public JsonArray createJsonArray(JsonObject pages) {
+        JsonArray revisionArray = null;
+        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
+//            if(entry.getValue().getAsJsonObject().getAsString().equals("-1")){
+//                System.out.println("Page Not Found");
+//            }
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+            revisionArray = entryObject.getAsJsonArray("revisions");
+        }
+        return revisionArray;
+
+
+    }
 }
