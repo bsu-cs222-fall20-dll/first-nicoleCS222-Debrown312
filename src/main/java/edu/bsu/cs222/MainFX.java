@@ -10,10 +10,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainFX extends Application {
     URLConnection urlConnection = new URLConnection();
     URLResults urlResults = new URLResults();
+    RevisionParser revisionParser = new RevisionParser();
 
     public static void main(String[] args) {
         launch(args);
@@ -33,13 +35,21 @@ public class MainFX extends Application {
         searchButton.setOnAction(event -> {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
-                urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
+                //urlResults.RevisionList(urlConnection.getConnectionToWebsite(url));
+                ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url));
+                if(revisionList != null) {
+                    for (Revisions entry : revisionList) {
+                        System.out.println("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp());
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         });
         parent.getChildren().add(searchButton);
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
     }
+
 }
