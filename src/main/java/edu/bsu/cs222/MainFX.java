@@ -33,6 +33,7 @@ public class MainFX extends Application {
         Button searchButton = new Button("Search");
         searchWikipedia(searchButton);
         parent.getChildren().add(searchButton);
+
         primaryStage.setScene(new Scene(parent, 350, 550));
         primaryStage.show();
     }
@@ -42,6 +43,7 @@ public class MainFX extends Application {
         urlArea.getChildren().add(textField);
         parent.getChildren().add(urlArea);
     }
+
     public void searchWikipedia(Button searchButton) {
         searchButton.setOnAction(event -> {
             try {
@@ -51,9 +53,9 @@ public class MainFX extends Application {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         });
     }
+
     public void displayAllRevisions(ArrayList<Revisions> revisionList) {
         if (revisionList != null) {
             for (Revisions entry : revisionList) {

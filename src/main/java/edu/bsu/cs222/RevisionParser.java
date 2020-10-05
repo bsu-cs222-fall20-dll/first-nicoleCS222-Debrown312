@@ -11,8 +11,12 @@ import javafx.scene.layout.VBox;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
@@ -38,6 +42,7 @@ public class RevisionParser {
         JsonElement rootElement = parser.parse(reader);
         return rootElement;
     }
+
     private JsonObject createJsonParserForWebsite(JsonElement rootElement) {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
@@ -53,14 +58,33 @@ public class RevisionParser {
         return revisionArray;
     }
 
-    private ArrayList<Revisions> createRevisionList(JsonArray revisionArray) {
+    private ArrayList<Revisions> createRevisionList(JsonArray revisionArray) throws ParseException {
         for (JsonElement entry : revisionArray) {
             String user = entry.getAsJsonObject().get("user").getAsString();
             String timeStamp = entry.getAsJsonObject().get("timestamp").getAsString();
-            Revisions revision = new Revisions(user, timeStamp);
+            String properTimeStamp = accountForTimeZone(timeStamp);
+            Revisions revision = new Revisions(user, properTimeStamp);
             revisionList.add(revision);
         }
         return revisionList;
+    }
+
+    public String accountForTimeZone(String timeStamp) {
+        String timeStampConversion = timeStamp.replaceAll("T", " ");
+        timeStampConversion = timeStampConversion.replaceAll("Z", "");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone currentTimeZone = TimeZone.getDefault();
+        simpleDateFormat.setTimeZone(currentTimeZone);
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(timeStampConversion);
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssa");
+            String dateAccountingForTimeZone = simpleDateFormat2.format(date);
+            return dateAccountingForTimeZone;
+        } catch (ParseException e) {
+            System.out.println(timeStampConversion);
+            return timeStamp;
+        }
     }
 
     private void checkForRedirects(JsonElement rootElement, VBox parent){
@@ -68,10 +92,8 @@ public class RevisionParser {
         JsonObject redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects").get(0).getAsJsonObject();
         String from = redirects.get("from").getAsString();
         String to = redirects.get("to").getAsString();
-        HBox redirectFrom = new HBox(new Label("From: " + from));
-        HBox redirectTo = new HBox(new Label("To: " + to));
-        parent.getChildren().add(redirectFrom);
-        parent.getChildren().add(redirectTo);
+        HBox redirect = new HBox(new Label("From: " + from + "\nTo: " + to + "\n"));
+        parent.getChildren().add(redirect);
     }
 
     private void tryRedirect(JsonElement rootElement, VBox parent){
