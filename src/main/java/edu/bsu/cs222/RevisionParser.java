@@ -82,7 +82,6 @@ public class RevisionParser {
             String dateAccountingForTimeZone = simpleDateFormat2.format(date);
             return dateAccountingForTimeZone;
         } catch (ParseException e) {
-            System.out.println(timeStampConversion);
             return timeStamp;
         }
     }

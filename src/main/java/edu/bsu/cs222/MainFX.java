@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainFX extends Application {
     URLConnection urlConnection = new URLConnection();
@@ -29,6 +30,9 @@ public class MainFX extends Application {
         parent.getChildren().add(new Label("Enter Search for Revision"));
 
         createSearchBox();
+
+        revisionSelector.getItems().addAll("Recent", "Most Active");
+        parent.getChildren().add(revisionSelector);
 
         Button searchButton = new Button("Search");
         searchWikipedia(searchButton);
@@ -49,11 +53,48 @@ public class MainFX extends Application {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
                 ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url, parent), parent);
-                displayAllRevisions(revisionList);
+                if(revisionSelector.getValue().equals("Recent")) {
+                    displayAllRevisions(revisionList);
+                }else if(revisionSelector.getValue().equals("Most Active")){
+                    getMostActiveRevisions(revisionList);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void getMostActiveRevisions(ArrayList<Revisions> revisionList) {
+        if(revisionList != null){
+            HashMap<String, Integer> mostActiveUserMap = new HashMap<>();
+            for(Revisions entry : revisionList){
+                boolean isInArray = false;
+                ArrayList<String> userArray = new ArrayList<>();
+                for(String user : userArray){
+                    if(entry.getUser().equals(user)){
+                        isInArray = true;
+                        break;
+                    }
+                }
+                if(isInArray == false){
+                    mostActiveUserMap.put(entry.getUser(), 1);
+                }else{
+                    int counter = mostActiveUserMap.get(entry.getUser());
+                    counter += 1;
+                    mostActiveUserMap.remove(entry.getUser());
+                    mostActiveUserMap.put(entry.getUser(), counter);
+                }
+            }
+            displayMostActiveRevisions(mostActiveUserMap);
+        }
+    }
+
+    private void displayMostActiveRevisions(HashMap<String, Integer> mostActiveUserMap) {
+        for(String user : mostActiveUserMap.keySet()){
+            int counter = mostActiveUserMap.get(user);
+            HBox revision = new HBox(new Label("User: " + user + "   Revisions: " + counter));
+            parent.getChildren().add(revision);
+        }
     }
 
     public void displayAllRevisions(ArrayList<Revisions> revisionList) {
