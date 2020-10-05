@@ -14,19 +14,22 @@ import java.util.Map;
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
-        JsonElement rootElement = getRootElement(inputStream);
-        tryRedirect(rootElement);
+        if(inputStream != null) {
+            JsonElement rootElement = getRootElement(inputStream);
+            tryRedirect(rootElement);
 
-        try {
-            JsonObject pages = createJsonParser(rootElement);
-            JsonArray revisionArray = createJsonArray(pages);
-            revisionList = createRevisionList(revisionArray);
-            return revisionList;
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println("Page Not Found");
-            return null;
+            try {
+                JsonObject pages = createJsonParser(rootElement);
+                JsonArray revisionArray = createJsonArray(pages);
+                revisionList = createRevisionList(revisionArray);
+                return revisionList;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Page Not Found");
+                return null;
+            }
         }
+        return null;
     }
 
     @SuppressWarnings("deprecation")
