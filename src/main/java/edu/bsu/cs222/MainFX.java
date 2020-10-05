@@ -34,7 +34,7 @@ public class MainFX extends Application {
         searchButton.setOnAction(event -> {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
-                ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url));
+                ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url, parent));
                 displayAllRevisions(revisionList, parent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -46,7 +46,7 @@ public class MainFX extends Application {
         primaryStage.show();
     }
     public void displayAllRevisions(ArrayList<Revisions> revisionList, VBox parent) {
-        if(revisionList != null) {
+        if (revisionList != null) {
             for (Revisions entry : revisionList) {
                 HBox revision = new HBox(new Label("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp()));
                 parent.getChildren().add(revision);
