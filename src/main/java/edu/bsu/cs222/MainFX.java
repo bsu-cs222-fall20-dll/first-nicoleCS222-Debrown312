@@ -42,7 +42,7 @@ public class MainFX extends Application {
 
         });
         parent.getChildren().add(searchButton);
-        primaryStage.setScene(new Scene(parent));
+        primaryStage.setScene(new Scene(parent, 350, 550));
         primaryStage.show();
     }
     public void displayAllRevisions(ArrayList<Revisions> revisionList, VBox parent) {
@@ -53,5 +53,6 @@ public class MainFX extends Application {
             }
         }
     }
+
 
 }
