@@ -52,7 +52,14 @@ public class RevisionParser {
         }
         return revisionList;
     }
-    private void checkForRedirects(JsonObject pages){
-
+    private void checkForRedirects(InputStream inputStream){
+        JsonParser parser = new JsonParser();
+        Reader reader = new InputStreamReader(inputStream);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonObject redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects").get(0).getAsJsonObject();
+        String from = redirects.get("from").getAsString();
+        String to = redirects.get("to").getAsString();
+        System.out.println("From: " + from + "\nTo: " + to + "\n");
     }
 }
