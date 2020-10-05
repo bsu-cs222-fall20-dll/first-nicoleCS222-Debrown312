@@ -62,21 +62,22 @@ public class RevisionParser {
         }
         return revisionList;
     }
-    @SuppressWarnings("deprecation")
+
     private void checkForRedirects(JsonElement rootElement, VBox parent){
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects").get(0).getAsJsonObject();
         String from = redirects.get("from").getAsString();
         String to = redirects.get("to").getAsString();
-        HBox redirect = new HBox(new Label("From: " + from + "\nTo: " + to + "\n"));
-        parent.getChildren().add(redirect);
-        //System.out.println("From: " + from + "\nTo: " + to + "\n");
+        HBox redirectFrom = new HBox(new Label("From: " + from));
+        HBox redirectTo = new HBox(new Label("To: " + to));
+        parent.getChildren().add(redirectFrom);
+        parent.getChildren().add(redirectTo);
     }
 
     private void tryRedirect(JsonElement rootElement, VBox parent){
         try{
             checkForRedirects(rootElement, parent);
-        }catch(Exception f){
+        }catch(Exception ignored){
         }
     }
 }

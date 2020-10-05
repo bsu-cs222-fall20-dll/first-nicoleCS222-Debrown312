@@ -14,11 +14,8 @@ public class URLConnection {
             connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown312@gmail.com)");
             return connection.getInputStream();
         }catch(Exception e){
-            //System.out.println("Cannot Connect to Wikipedia");
             HBox noWikiConnection = new HBox(new Label("Cannot connect to Wikipedia"));
             parent.getChildren().add(noWikiConnection);
-            //InputStream inputStream = null;
-            //return inputStream;
         }
         return null;
     }

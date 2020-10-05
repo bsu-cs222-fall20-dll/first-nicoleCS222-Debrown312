@@ -21,7 +21,7 @@ public class MainFX extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         VBox parent = new VBox();
         parent.getChildren().add(new Label("Enter Search for Revision"));
 
