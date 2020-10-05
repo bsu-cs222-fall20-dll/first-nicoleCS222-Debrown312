@@ -14,22 +14,19 @@ import java.util.Map;
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
-        if(inputStream != null) {
-            JsonElement rootElement = getRootElement(inputStream);
-            tryRedirect(rootElement);
+        JsonElement rootElement = getRootElement(inputStream);
+        tryRedirect(rootElement);
 
-            try {
-                JsonObject pages = createJsonParser(rootElement);
-                JsonArray revisionArray = createJsonArray(pages);
-                revisionList = createRevisionList(revisionArray);
-                return revisionList;
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Page Not Found");
-                return null;
-            }
+        try {
+            JsonObject pages = createJsonParserForWebsite(rootElement);
+            JsonArray revisionArray = createJsonArrayForRevisions(pages);
+            revisionList = createRevisionList(revisionArray);
+            return revisionList;
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Page Not Found");
+            return null;
         }
-        return null;
     }
 
     @SuppressWarnings("deprecation")
@@ -39,13 +36,13 @@ public class RevisionParser {
         JsonElement rootElement = parser.parse(reader);
         return rootElement;
     }
-    private JsonObject createJsonParser(JsonElement rootElement) {
+    private JsonObject createJsonParserForWebsite(JsonElement rootElement) {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         return pages;
     }
 
-    private JsonArray createJsonArray(JsonObject pages) {
+    private JsonArray createJsonArrayForRevisions(JsonObject pages) {
         JsonArray revisionArray = null;
         for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
