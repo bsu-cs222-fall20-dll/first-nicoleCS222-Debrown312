@@ -14,13 +14,11 @@ import java.util.Map;
 public class RevisionParser {
     ArrayList<Revisions> revisionList = new ArrayList<>();
     public ArrayList<Revisions> listOfAllRevisions(InputStream inputStream) {
-        //InputStream inputStream2 = inputStream;
         JsonElement rootElement = getRootElement(inputStream);
         tryRedirect(rootElement);
 
         try {
             JsonObject pages = createJsonParser(rootElement);
-            //checkForRedirects(inputStream);
             JsonArray revisionArray = createJsonArray(pages);
             revisionList = createRevisionList(revisionArray);
             return revisionList;
@@ -75,7 +73,6 @@ public class RevisionParser {
         try{
             checkForRedirects(rootElement);
         }catch(Exception f){
-            //System.out.println("here");
         }
     }
 }
