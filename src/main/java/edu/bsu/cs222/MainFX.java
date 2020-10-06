@@ -21,6 +21,7 @@ public class MainFX extends Application {
     VBox parent = new VBox();
     TextField textField = new TextField();
     ComboBox<String> revisionSelector = new ComboBox<>();
+    HBox revision = new HBox();
 
     public static void main(String[] args) {
         launch(args);
@@ -54,16 +55,19 @@ public class MainFX extends Application {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
                 ArrayList<Revisions> revisionList = revisionParser.listOfAllRevisions(urlConnection.getConnectionToWebsite(url, parent), parent);
+                //revision.getChildren().clear();
                 if(revisionSelector.getValue().equals("Recent")) {
-                    displayAllRevisions(revisionList);
+                    displayRecentRevisions(revisionList);
                 }else if(revisionSelector.getValue().equals("Most Active")){
                     HashMap<String, Integer> mostActiveUserMap = mostActiveRevisions.getMostActiveRevisions(revisionList);
                     if(mostActiveUserMap != null) {
                         displayMostActiveRevisions(mostActiveUserMap);
                     }
+                }else{
+                    revision = new HBox(new Label("There was an error"));
+                    parent.getChildren().add(revision);
                 }
             } catch (Exception ignored) {
-
             }
         });
     }
@@ -71,15 +75,15 @@ public class MainFX extends Application {
     private void displayMostActiveRevisions(HashMap<String, Integer> mostActiveUserMap) {
         for(String user : mostActiveUserMap.keySet()){
             int counter = mostActiveUserMap.get(user);
-            HBox revision = new HBox(new Label("User: " + user + "   Revisions: " + counter));
+            revision = new HBox(new Label("User: " + user + "   Revisions: " + counter));
             parent.getChildren().add(revision);
         }
     }
 
-    private void displayAllRevisions(ArrayList<Revisions> revisionList) {
+    private void displayRecentRevisions(ArrayList<Revisions> revisionList) {
         if (revisionList != null) {
             for (Revisions entry : revisionList) {
-                HBox revision = new HBox(new Label("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp()));
+                revision = new HBox(new Label("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp()));
                 parent.getChildren().add(revision);
             }
         }
