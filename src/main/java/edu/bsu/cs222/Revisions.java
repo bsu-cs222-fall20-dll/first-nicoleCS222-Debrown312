@@ -3,7 +3,7 @@ package edu.bsu.cs222;
 public class Revisions {
     private String user;
     private String timeStamp;
-    private int counter = 0;
+    private int counter = 1;
 
     public Revisions(String user, String timeStamp) {
         this.user = user;

@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class MainFX extends Application {
     URLConnection urlConnection = new URLConnection();
     RevisionParser revisionParser = new RevisionParser();
+    MostActiveRevisions mostActiveRevisions = new MostActiveRevisions();
     VBox parent = new VBox();
     TextField textField = new TextField();
     ComboBox<String> revisionSelector = new ComboBox<>();
@@ -56,37 +57,15 @@ public class MainFX extends Application {
                 if(revisionSelector.getValue().equals("Recent")) {
                     displayAllRevisions(revisionList);
                 }else if(revisionSelector.getValue().equals("Most Active")){
-                    getMostActiveRevisions(revisionList);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void getMostActiveRevisions(ArrayList<Revisions> revisionList) {
-        if(revisionList != null){
-            HashMap<String, Integer> mostActiveUserMap = new HashMap<>();
-            for(Revisions entry : revisionList){
-                boolean isInArray = false;
-                ArrayList<String> userArray = new ArrayList<>();
-                for(String user : userArray){
-                    if(entry.getUser().equals(user)){
-                        isInArray = true;
-                        break;
+                    HashMap<String, Integer> mostActiveUserMap = mostActiveRevisions.getMostActiveRevisions(revisionList);
+                    if(mostActiveUserMap != null) {
+                        displayMostActiveRevisions(mostActiveUserMap);
                     }
                 }
-                if(isInArray == false){
-                    mostActiveUserMap.put(entry.getUser(), 1);
-                }else{
-                    int counter = mostActiveUserMap.get(entry.getUser());
-                    counter += 1;
-                    mostActiveUserMap.remove(entry.getUser());
-                    mostActiveUserMap.put(entry.getUser(), counter);
-                }
+            } catch (Exception e) {
+
             }
-            displayMostActiveRevisions(mostActiveUserMap);
-        }
+        });
     }
 
     private void displayMostActiveRevisions(HashMap<String, Integer> mostActiveUserMap) {
