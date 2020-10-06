@@ -19,7 +19,6 @@ public class JsonLearningTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
-        //array.get(1).getAsJsonObject().get("user").getAsString();
         for(Map.Entry<String,JsonElement> entry : pages.entrySet()){
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
@@ -40,4 +39,5 @@ public class JsonLearningTest {
         String user = holder.get("to").getAsString();
         Assertions.assertEquals("Frank Zappa", user);
     }
+
 }

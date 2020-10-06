@@ -15,7 +15,7 @@ import java.util.Map;
 public class URLConnectionTest {
     @SuppressWarnings("deprecation")
     @Test
-    public void URLConnectionUserRevisionsTest() throws IOException {
+    public void getUserFromRevisionsTest() throws IOException {
         URL wiki = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=Zappa&rvprop=timestamp|user&rvlimit=20&redirects");
         URLConnection connection = wiki.openConnection();
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (debrown4@bsu.edu)");

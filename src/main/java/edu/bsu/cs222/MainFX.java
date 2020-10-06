@@ -49,7 +49,7 @@ public class MainFX extends Application {
         parent.getChildren().add(urlArea);
     }
 
-    public void searchWikipedia(Button searchButton) {
+    private void searchWikipedia(Button searchButton) {
         searchButton.setOnAction(event -> {
             try {
                 URL url = urlConnection.inputToURLConverter(textField.getText());
@@ -62,7 +62,7 @@ public class MainFX extends Application {
                         displayMostActiveRevisions(mostActiveUserMap);
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
         });
@@ -76,7 +76,7 @@ public class MainFX extends Application {
         }
     }
 
-    public void displayAllRevisions(ArrayList<Revisions> revisionList) {
+    private void displayAllRevisions(ArrayList<Revisions> revisionList) {
         if (revisionList != null) {
             for (Revisions entry : revisionList) {
                 HBox revision = new HBox(new Label("User: " + entry.getUser() + "    TimeStamp: " + entry.getTimeStamp()));

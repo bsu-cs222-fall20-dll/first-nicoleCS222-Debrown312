@@ -39,14 +39,12 @@ public class RevisionParser {
     private JsonElement getRootElement(InputStream inputStream){
         JsonParser parser = new JsonParser();
         Reader reader = new InputStreamReader(inputStream);
-        JsonElement rootElement = parser.parse(reader);
-        return rootElement;
+        return parser.parse(reader);
     }
 
     private JsonObject createJsonParserForWebsite(JsonElement rootElement) {
         JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        return pages;
+        return rootObject.getAsJsonObject("query").getAsJsonObject("pages");
     }
 
     private JsonArray createJsonArrayForRevisions(JsonObject pages) {
@@ -69,18 +67,17 @@ public class RevisionParser {
         return revisionList;
     }
 
-    public String accountForTimeZone(String timeStamp) {
+    private String accountForTimeZone(String timeStamp) {
         String timeStampConversion = timeStamp.replaceAll("T", " ");
         timeStampConversion = timeStampConversion.replaceAll("Z", "");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         TimeZone currentTimeZone = TimeZone.getDefault();
         simpleDateFormat.setTimeZone(currentTimeZone);
-        Date date = null;
+        Date date;
         try {
             date = simpleDateFormat.parse(timeStampConversion);
             SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssa");
-            String dateAccountingForTimeZone = simpleDateFormat2.format(date);
-            return dateAccountingForTimeZone;
+            return simpleDateFormat2.format(date);
         } catch (ParseException e) {
             return timeStamp;
         }
